@@ -12,17 +12,18 @@ import config
 feed = eeml.Pachube(config.API_URL, config.API_KEY, use_https=False)
 
 def on_message(mosq, obj, msg):
-	content = json.loads(msg.payload)
-	
-	update_data = []
-	
-	for key, value in content.items():
-		if key == "_timestamp":
-			continue
-		update_data.append(eeml.Data(config.datastream[key], value, unit=eeml.Celsius()))
-		
-	feed.update(update_data)
 	try:
+		content = json.loads(msg.payload)
+		
+		update_data = []
+		
+		for key, value in content.items():
+			if key == "_timestamp":
+				continue
+			update_data.append(eeml.Data(config.datastream[key], value, unit=eeml.Celsius()))
+			
+		feed.update(update_data)
+
 		feed.put()
 	except Exception, err:
 		print >> sys.stderr, "Couldn't send data to pachube: ", err
