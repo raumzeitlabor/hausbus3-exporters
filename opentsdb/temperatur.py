@@ -13,11 +13,11 @@ broker = "tiefpunkt.vm.rzl"
 
 def on_message(mosq, obj, msg):
 	content = json.loads(msg.payload)
-	t = time.gmtime(content["_timestamp"])
+	t = content["_timestamp"]
 	for key, value in content.items():
 		if key == "_timestamp":
 			continue
-		print "temperatur "+str(time.strftime("%s",t))+" "+str(value)+" sensor="+key
+		print "temperatur "+str(t)+" "+str(value)+" sensor="+key
 
 mqtt = mosquitto.Mosquitto("opentsdb-client", clean_session=False)
 mqtt.will_set(topic="/monitor", payload=json.dumps({"event": "unexpected_disconnect","device": "opentsdb-client"}))

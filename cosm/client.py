@@ -13,7 +13,6 @@ feed = eeml.Pachube(config.API_URL, config.API_KEY, use_https=False)
 
 def on_message(mosq, obj, msg):
 	content = json.loads(msg.payload)
-	t = time.gmtime(content["_timestamp"])
 	
 	update_data = []
 	
