@@ -1,6 +1,10 @@
 #!/usr/bin/python
 # coding=utf8
 
+import os, sys
+original_path = os.path.dirname(os.path.realpath(os.path.abspath(__file__)))
+sys.path.append(original_path)
+
 import mosquitto
 import json
 import time
