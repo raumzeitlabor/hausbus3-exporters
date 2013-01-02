@@ -20,7 +20,7 @@ def on_message(mosq, obj, msg):
 	for key, value in content.items():
 		if key == "_timestamp":
 			continue
-		update_data.append(eeml.Data(config[key], value, unit=eeml.Celsius()))
+		update_data.append(eeml.Data(config.datastream[key], value, unit=eeml.Celsius()))
 		
 	feed.update(update_data)
 	try:
